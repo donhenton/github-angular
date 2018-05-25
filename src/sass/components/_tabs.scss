@@ -1,0 +1,64 @@
+.tabs.tab-link-container { 
+
+display: block;
+
+.tab-link {
+
+
+    position: relative;
+    cursor: pointer;
+    float: left;
+    margin: 18px 2px 0;
+    padding: 18px 40px 16px 18px;
+    background: $green-color;
+    opacity: .75;
+    width: 150px;
+    font-size: smaller;
+    font-weight: bolder;
+    font-family: Orbitron;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+
+    &.tab-link-active {
+        background-color: $red-color;
+        color: white;
+        opacity: 1;
+        a.tab-link-selector {
+            text-decoration: none;
+           
+            &:visited {
+                color:white;
+            }
+            
+        }
+    }
+
+    a.tab-link-selector {
+        text-decoration: none;
+       
+        &:visited {
+            color:black;
+        }
+        
+    }
+
+  
+
+}
+
+}
+
+
+.tab-content {
+    clear: both;
+    border:  outset 4px $green-color;
+    height: 300px;
+    padding: 10px;
+    
+}
+
+
+
+
