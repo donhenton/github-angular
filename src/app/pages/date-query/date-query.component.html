@@ -1,0 +1,37 @@
+<div class="udemy-form row">
+  <div class="column30Left">
+    <div class="well">
+      
+        <p *ngIf="isValidFormSubmitted && dateForm.pristine" [ngClass] = "'success'">
+            Form submitted successfully.
+        </p>
+        <div *ngIf="dateForm.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+           {{this.getError()}}
+        </div>
+      <form class="form" [formGroup]="dateForm" (ngSubmit)="onFormSubmit()">
+        <div class="row"> Dates in (yyyy-MM-dd) format</div>
+        <table>
+          <tr>
+            <td><label for="startDate">Start Date:</label></td>
+            <td><input formControlName="startDate" type="text" size="15" id="startDate"></td>
+          </tr>
+          <tr>
+              <td><label for="endDate">End Date:</label></td>
+              <td><input formControlName="endDate" type="text" size="15" id="endDate"></td>
+            </tr>
+
+        </table>
+      
+        <button class="btn  btn-primary">Submit</button>
+
+      </form>
+    </div>
+
+  </div>
+  <div class="column70Right">
+
+   stuff
+
+
+  </div>
+</div>
