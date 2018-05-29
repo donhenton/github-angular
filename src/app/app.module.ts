@@ -10,13 +10,15 @@ import { MenuDirective } from './components/dropdown/menu.directive';
 import { DateQueryComponent } from './pages/date-query/date-query.component';
 import { GithubService } from './services/github.service';
 import { PageOffsetComponent } from './components/page-offset/page-offset.component';
-
+import { HomeComponent } from './pages/home/home-page.component';
 import { CommaPipe } from './components/comma-pipe/comma.pipe';
+import { GithubItemComponent } from './components/github-item/github-item.component';
 
 
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
+  { path: '', component: HomeComponent },
 ];
 
 
@@ -26,9 +28,11 @@ const appRoutes: Routes = [
     AppComponent,
     DropdownDirective,
     MenuDirective,
+    HomeComponent,
     DateQueryComponent,
     PageOffsetComponent,
     CommaPipe,
+    GithubItemComponent,
   ],
   imports: [
     FormsModule,
