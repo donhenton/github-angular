@@ -11,6 +11,8 @@ import { DateQueryComponent } from './pages/date-query/date-query.component';
 import { GithubService } from './services/github.service';
 import { PageOffsetComponent } from './components/page-offset/page-offset.component';
 
+import { CommaPipe } from './components/comma-pipe/comma.pipe';
+
 
 
 const appRoutes: Routes = [
@@ -26,6 +28,7 @@ const appRoutes: Routes = [
     MenuDirective,
     DateQueryComponent,
     PageOffsetComponent,
+    CommaPipe,
   ],
   imports: [
     FormsModule,

@@ -1,7 +1,9 @@
-<div [formGroup]="this.parentForm" class="page-selector">
+<div [formGroup]="this.parentForm"  *ngIf="this.totalPages > 0"   class="page-selector">
 
 Page 
 <input type="text" size="5"  value={{this.value}} formControlName={{this.formControlName}} id={{this.formControlName}}> 
- of {{this.totalPages}} <button class="page-button fi-arrow-up"></button> <button class="page-button fi-arrow-down"></button>
+ of {{this.totalPages}} 
+ <button (click)="this.arrowAction('up',$event)"  class="page-button fi-arrow-up"></button> 
+ <button (click)="this.arrowAction('down',$event)"  class="page-button fi-arrow-down"></button>
 
 </div>

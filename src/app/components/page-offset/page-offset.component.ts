@@ -46,6 +46,22 @@ export class PageOffsetComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  arrowAction(action, ev) {
+    ev.preventDefault();
+    const newValue = this.value;
+    if (action === 'up') {
+      this.value = (newValue + 1);
+      if (this.value > this.totalPages) {
+        this.value = this.totalPages;
+      }
+    } else {
+      this.value = (newValue - 1);
+      if (this.value < 1) {
+        this.value = 1;
+      }
+    }
+  }
+
   registerOnChange(fn: any) {
     // registers a handler function that is called when the view changes
     this.onChange = fn;
