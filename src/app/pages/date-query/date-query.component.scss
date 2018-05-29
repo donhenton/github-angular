@@ -1,0 +1,36 @@
+.github-results-container {
+
+  height: 350px;
+ 
+  border: thin solid blue;
+  overflow-y: scroll;  
+  overflow-x: hidden;
+   
+  .github-item {
+      border-bottom: 4px double #ccc;
+      width:750px;
+  }
+
+  .github-description {
+      padding-top: 20px;
+      font-style: italic;
+      font-family: Roboto;
+  }
+  .github-image {
+      img {
+        margin-left: 15px;
+        margin-top: 25px;
+      }
+      
+  }
+  .github-metalabel  {
+    font-family: Roboto;
+    font-weight: bolder;
+
+    margin-left: 10px;
+  }
+  .github-metadata {
+    
+    margin-left: 4px;
+  }
+}

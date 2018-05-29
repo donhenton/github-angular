@@ -6,11 +6,11 @@
             Form submitted successfully.
         </p>
         <div *ngIf="dateForm.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
-           {{this.getError()}}
+           {{this.errorInformation}}
         </div>
       <form class="form" [formGroup]="dateForm" (ngSubmit)="onFormSubmit()">
-        <div class="row"> Dates in (yyyy-MM-dd) format</div>
-        <table>
+        <div class="row"> Dates in (YYYY-MM-DD) format</div>
+        <table border="1">
           <tr>
             <td><label for="startDate">Start Date:</label></td>
             <td><input formControlName="startDate" type="text" size="15" id="startDate"></td>
@@ -21,7 +21,11 @@
             </tr>
 
         </table>
-      
+        <div>
+          <app-page-offset formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.dateForm"></app-page-offset>
+
+        </div>  
+        
         <button class="btn  btn-primary">Submit</button>
 
       </form>
@@ -30,7 +34,35 @@
   </div>
   <div class="column70Right">
 
-   stuff
+    <div class="github-results-container" *ngIf="this.pageData && this.pageData.results">
+
+      <div *ngFor="let g of this.pageData.results">
+        <div class="row github-item">
+            <div class="github-image column15Left"><a target="_blank" href="{{g.url}}"><img src={{g.avatarUrl}} width="50%" height="50%"></a></div>
+            <div class="column85Right">
+               <div class="row github-description">
+                  {{g.description}}
+
+               </div>
+               <div class="row">
+                  <span class="github-metalabel">Stars:</span><span class="github-metadata">{{g.starCount}}</span>
+                  <span class="github-metalabel">Watchers:</span><span class="github-metadata">{{g.watcherCount}}</span>
+                  <span class="github-metalabel">Language:</span><span class="github-metadata">{{g.language}}</span>
+ 
+
+               </div>
+               <div class="row">
+                  <span class="github-metalabel">Topics:</span><span class="github-metadata">{{g.topics}}</span>
+
+               </div>
+            </div>
+        </div>
+        
+        
+      </div>
+
+    </div> 
+    
 
 
   </div>

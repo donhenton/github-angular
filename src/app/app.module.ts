@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { DropdownDirective } from './components/dropdown/dropdown.directive';
 import { MenuDirective } from './components/dropdown/menu.directive';
 import { DateQueryComponent } from './pages/date-query/date-query.component';
+import { GithubService } from './services/github.service';
+import { PageOffsetComponent } from './components/page-offset/page-offset.component';
 
 
 
@@ -23,6 +25,7 @@ const appRoutes: Routes = [
     DropdownDirective,
     MenuDirective,
     DateQueryComponent,
+    PageOffsetComponent,
   ],
   imports: [
     FormsModule,
@@ -32,7 +35,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
 
   ],
-  providers: [],
+  providers: [GithubService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
