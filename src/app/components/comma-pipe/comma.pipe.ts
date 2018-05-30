@@ -16,7 +16,7 @@ export class CommaPipe implements PipeTransform {
 
       out = out + s + ', ';
     });
-
+    out = out.trim();
     out = out.substr(0, out.length - 1);
     return out;
   }
