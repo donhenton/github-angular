@@ -20,7 +20,7 @@
                 <label for="languageSelector">Languages</label>
               </td>
               <td>
-                <select formControlName="language" class="form-control" id="languageSelector">
+                <select (change)="changeSelect($event)" formControlName="language" class="form-control" id="languageSelector">
                   <option *ngFor="let item of this.languages" value="{{item.key}}">{{item.key}} ({{item.docCount}})</option>
                 </select>
               </td>

@@ -78,8 +78,13 @@ export class TermPageComponent implements OnInit {
   queryTypeChange(ch, event) {
     this.queryType = ch;
     this.mainForm.patchValue({'queryType': ch});
+    this.paginator.reset();
+
   }
 
+  changeSelect(ev) {
+    this.paginator.reset();
+  }
 
   ngOnInit() {
     const me = this;

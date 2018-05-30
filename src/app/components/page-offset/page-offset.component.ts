@@ -36,6 +36,7 @@ export class PageOffsetComponent implements OnInit, ControlValueAccessor {
 
   public reset() {
     this.writeValue(1);
+    this.totalPages = 0;
   }
 
  detectChange(ev) {
