@@ -14,11 +14,17 @@ import { HomeComponent } from './pages/home/home-page.component';
 import { CommaPipe } from './components/comma-pipe/comma.pipe';
 import { GithubItemComponent } from './components/github-item/github-item.component';
 import { OnlyNumberDirective } from './components/only-number/only-number.directive';
+import { TermPageComponent } from './pages/term-page/term-page.component';
 
 
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
+  {
+    path: 'term-page', component: TermPageComponent,
+    resolve: { itemData: GithubService },
+    data: { dataType: 'terms' }
+  },
   { path: '', component: HomeComponent },
 ];
 
@@ -35,6 +41,7 @@ const appRoutes: Routes = [
     CommaPipe,
     GithubItemComponent,
     OnlyNumberDirective,
+    TermPageComponent,
   ],
   imports: [
     FormsModule,
