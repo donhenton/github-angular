@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
 import { momentValidator } from './../../utils/moment.validator';
 import {GithubService} from './../../services/github.service';
 import {GithubPage} from './../../services/github.interfaces';
+import { PageOffsetComponent } from '../../components/page-offset/page-offset.component';
 
 // https://www.concretepage.com/angular-2/angular-2-4-pattern-validation-example
 // https://auth0.com/blog/real-world-angular-series-part-6/
@@ -19,11 +20,15 @@ export class DateQueryComponent implements OnInit {
   errorInformation = '';
   totalPages = 0;
   pageData: GithubPage = null;
+  @ViewChild('pageOffset') paginator: PageOffsetComponent ;
+  currentStartDate: string = null;
+  currentEndDate: string = null;
 
   constructor(private formBuilder: FormBuilder, private githubService: GithubService) { }
 
   ngOnInit() {
     this.createDateForm();
+    this.dateForm.valueChanges.subscribe(this.formChange.bind(this));
   }
   createDateForm() {
     this.dateForm = this.formBuilder.group({
@@ -32,6 +37,23 @@ export class DateQueryComponent implements OnInit {
       pageNumber: [1, [Validators.required, Validators.min(1)]],
     });
   }
+
+  formChange(data) {
+    // console.log(`formChange ${JSON.stringify(data)}`);
+    if (this.currentStartDate == null) {
+      this.currentStartDate = data.startDate;
+      this.currentEndDate = data.endDate;
+      return;
+    }
+    if (this.currentStartDate !== data.startDate
+         || this.currentEndDate !== data.endDate  ) {
+      this.currentStartDate = data.startDate;
+      this.currentEndDate = data.endDate;
+     // console.log('resetting paginator');
+      this.paginator.reset();
+    }
+  }
+
 
   getError() {
 
@@ -65,6 +87,7 @@ export class DateQueryComponent implements OnInit {
   onFormSubmit() {
     this.isValidFormSubmitted = false;
     this.getError();
+    const formRef = this.dateForm;
     if (this.dateForm.invalid) {
 
       return;
@@ -75,6 +98,7 @@ export class DateQueryComponent implements OnInit {
       this.isValidFormSubmitted = false;
       this.pageData = data;
       this.totalPages = data.totalPages;
+
 
     };
 

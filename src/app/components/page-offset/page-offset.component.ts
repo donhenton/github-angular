@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, AfterViewInit, forwardRef, Output, EventEmitter, Renderer2, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+// https://blog.thoughtram.io/angular/2016/07/27/custom-form-controls-in-angular-2.html
+// https://medium.com/@tarik.nzl/angular-2-custom-form-control-with-validation-json-input-2b4cf9bc2d73
 
 @Component({
   selector: 'app-page-offset',
@@ -11,6 +13,7 @@ import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from 
       provide: NG_VALUE_ACCESSOR,
       multi: true,
       useExisting: forwardRef(() => PageOffsetComponent),
+
     }
   ]
 
@@ -21,7 +24,7 @@ export class PageOffsetComponent implements OnInit, ControlValueAccessor {
   @Input() public formControlName: any;
   @Input() public parentForm: FormGroup;
   @Input() public totalPages = 0;
-  @Input() _value = 1;
+  _value = 1;
   onChange: any = () => { };
   onTouched: any = () => { };
 
@@ -31,16 +34,27 @@ export class PageOffsetComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {
   }
 
+  public reset() {
+    this.writeValue(1);
+  }
+
+ detectChange(ev) {
+  // console.log(ev.target.value);
+  this.value = ev.target.value;
+ }
+
   get value() {
     return this._value;
   }
   set value(val) {
+   // console.log(`setting ${this.value} to ${val}`);
     this._value = val;
     this.onChange(val);
     this.onTouched();
   }
   writeValue(value: any) {
     // tells Angular how to write value from model into view
+   // console.log(`writeValue ${value}`);
     if (value) {
       this.value = value;
     }
@@ -48,7 +62,8 @@ export class PageOffsetComponent implements OnInit, ControlValueAccessor {
 
   arrowAction(action, ev) {
     ev.preventDefault();
-    const newValue = this.value;
+    // const newValue: any =  this.value ;
+    const newValue = parseInt(this.value + '', 10);
     if (action === 'up') {
       this.value = (newValue + 1);
       if (this.value > this.totalPages) {

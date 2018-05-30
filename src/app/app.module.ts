@@ -13,6 +13,7 @@ import { PageOffsetComponent } from './components/page-offset/page-offset.compon
 import { HomeComponent } from './pages/home/home-page.component';
 import { CommaPipe } from './components/comma-pipe/comma.pipe';
 import { GithubItemComponent } from './components/github-item/github-item.component';
+import { OnlyNumberDirective } from './components/only-number/only-number.directive';
 
 
 
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     PageOffsetComponent,
     CommaPipe,
     GithubItemComponent,
+    OnlyNumberDirective,
   ],
   imports: [
     FormsModule,

@@ -22,7 +22,7 @@
 
         </table>
         <div>
-          <app-page-offset formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.dateForm"></app-page-offset>
+          <app-page-offset #pageOffset name="pageNumber" formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.dateForm"></app-page-offset>
 
         </div>  
         
