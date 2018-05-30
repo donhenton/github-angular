@@ -29,6 +29,15 @@ export class GithubService implements Resolve<any> {
 
   }
 
+  // http://localhost:9000/github/search/entries/topics?topics=java&pageOffset=0
+  public getEntriesByTerms(param, queryType, pageOffset) {
+    const me = this;
+    const urlString = this.URL_BASE + '/search/entries/' + queryType;
+    const queryString = `?${queryType}=${param}&pageOffset=${pageOffset}`;
+    return this._http.get(urlString + queryString, this.createRequestOpts())
+      .map(res => res.json());
+  }
+
   public getTermsData(): Observable<any> {
 
     return this._http.get(this.URL_BASE + '/search/uniqueterms', this.createRequestOpts())

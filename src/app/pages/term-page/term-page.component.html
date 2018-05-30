@@ -2,27 +2,48 @@
   <div class="column30Left">
     <div class="row">
       <div class="well">
-        <form class="form">
+        <form [formGroup]="mainForm" class="form" (ngSubmit)="onFormSubmit()">
           <table class="table">
-            <tr>
-              <td><label for="languageSelector">Languages</label> </td>
+              <tr>
+                  <td>
+                    <label>Query Type</label>
+                  </td>
+                  <td>  
+                     
+                      <input (change)="queryTypeChange('language',$event)" formControlName="queryType" type="radio" id="type-language"  value="language" > <label for="type-language">Language</label> 
+                      <input (change)="queryTypeChange('topics',$event)" formControlName="queryType" type="radio" id="type-topics"  value="topics"> <label for="type-topics">Topics</label> 
+                     
+                  </td>
+                </tr>
+            <tr *ngIf="this.checkQueryType('language')">
               <td>
-                <select class="form-control" id="languageSelector">
+                <label for="languageSelector">Languages</label>
+              </td>
+              <td>
+                <select formControlName="language" class="form-control" id="languageSelector">
                   <option *ngFor="let item of this.languages" value="{{item.key}}">{{item.key}} ({{item.docCount}})</option>
                 </select>
               </td>
             </tr>
-            <tr>
-                <td><label for="topicsSelector">Topics</label> </td>
-                <td>
-                  <select class="form-control" id="topicsSelector">
-                    <option *ngFor="let item of this.topics" value="{{item.key}}">{{item.key}} ({{item.docCount}})</option>
-                  </select>
-                </td>
-              </tr>
-
+            <tr *ngIf="this.checkQueryType('topics')">
+              <td>
+                <label for="topicsSelector">Topics</label>
+              </td>
+              <td>
+                <select formControlName="topic" class="form-control" id="topicsSelector">
+                  <option *ngFor="let item of this.topics" value="{{item.key}}">{{item.key}} ({{item.docCount}})</option>
+                </select>
+              </td>
+            </tr>
+            
           </table>
-
+          <div class="row">
+              <app-page-offset #pageOffset name="pageNumber" formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.mainForm"></app-page-offset>
+    
+            </div>
+            <div class="row">
+                <input type="submit" class="btn btn-primary" value="submit">
+            </div>
         </form>
 
 
@@ -32,13 +53,12 @@
       </div>
 
     </div>
-
-    <div class="row">
-      <div class="well">
-
-      </div>
-
-    </div>
-
   </div>
+  <div class="column70Right">
+
+
+      <app-github-item [pageData]="this.pageData"></app-github-item>
+   
+  
+    </div>
 </div>
