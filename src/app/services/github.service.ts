@@ -44,6 +44,14 @@ export class GithubService implements Resolve<any> {
       .map(res => res.json());
   }
 
+
+  public getSuggestion(suggestion): Observable<any> {
+    const me = this;
+    const urlString = this.URL_BASE + '/search/suggestion?entryText=' + suggestion;
+    return this._http.get(urlString  , this.createRequestOpts())
+      .map(res => res.json());
+  }
+
   private createRequestOpts(): RequestOptions {
     const headers = new Headers();
     headers.append('Access-Control-Allow-Headers', 'Content-Type');

@@ -1,0 +1,56 @@
+<h3>
+  Type Ahead Suggestions</h3>
+
+<div class="display-box row">
+
+  <div class="column50Left">
+    <form autocomplete="off" [formGroup]="suggestForm" class="well form">
+
+      <table>
+        <tr>
+          <td>
+            <label for="search">Search</label>
+          </td>
+          <td>
+            <input (keydown)="handleESC($event)" formControlName="suggestion" type="text" size=30 id="search" class="form-control" name="search">
+            <div [ngClass]="getIndicatorCss()">&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            
+            <ul [ngClass]="getSuggestionListCss()">
+              <li  *ngFor="let entry of entries;"class="selection-item">
+                  <span class="link" (click)="handleClickForEntry(entry,$event)">{{entry.description | truncate : 40 }}</span>
+              </li>
+
+            </ul>
+
+
+
+
+          </td>
+        </tr>
+
+      </table>
+
+
+
+    </form>
+
+
+
+
+  </div>
+
+  <div class="column50Right">
+
+
+      <app-github-item [pageData]="this.pageData"></app-github-item>
+
+
+  </div>
+
+
+</div>

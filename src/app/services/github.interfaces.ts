@@ -21,6 +21,7 @@ export class GithubResult {
     'url': string;
     'watcherCount':  number;
     'topics': string[];
+    'id': string;
 
 }
 

@@ -1,0 +1,34 @@
+$blue-color: #16174f;
+$red-color: #963019;
+$white-color: #f6f1ed; //this will have black text all others white
+$green-color: #667467;
+.display-box {
+    height: 475px;
+    .scroll-loader {
+       display: inline-table;
+       transform: scaleX(.75);
+       &.hidden {
+           display: none!important
+       }
+    }
+}
+
+
+.suggestion-list {
+    background-color: white;
+    padding: 10px;
+    width: 400px;
+    border: thin solid $blue-color;
+    box-shadow: 1px 1px $blue-color;
+    overflow: hidden;
+    li {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        span.link {
+            cursor: pointer;
+            color: $red-color;
+            font-family: Orbitron;
+            font-weight: 600;
+        }
+    }
+}

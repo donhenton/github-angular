@@ -15,7 +15,10 @@ body {
 }
 
 
-
+ div.scroll-loader {
+    background:  url('images/scroll-loader.gif') 50% 50% no-repeat;
+    width:200px;
+}
 
 div.waitIndicator
 { 

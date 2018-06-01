@@ -15,11 +15,13 @@ import { CommaPipe } from './components/comma-pipe/comma.pipe';
 import { GithubItemComponent } from './components/github-item/github-item.component';
 import { OnlyNumberDirective } from './components/only-number/only-number.directive';
 import { TermPageComponent } from './pages/term-page/term-page.component';
-
+import { SuggestPageComponent } from './pages/suggest-page/suggest-page.component';
+import { TruncatePipe } from './components/truncate-pipe/truncate.pipe';
 
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
+  { path: 'suggest-page', component: SuggestPageComponent },
   {
     path: 'term-page', component: TermPageComponent,
     resolve: { itemData: GithubService },
@@ -39,9 +41,11 @@ const appRoutes: Routes = [
     DateQueryComponent,
     PageOffsetComponent,
     CommaPipe,
+    TruncatePipe,
     GithubItemComponent,
     OnlyNumberDirective,
     TermPageComponent,
+    SuggestPageComponent,
   ],
   imports: [
     FormsModule,
