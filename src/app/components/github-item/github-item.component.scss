@@ -1,10 +1,15 @@
+$blue-color: #16174f;
+$red-color: #963019;
+$white-color: #f6f1ed; //this will have black text all others white
+$green-color: #667467;
+
 .github-results-container {
 
     height: 350px;
    
-    border: thin solid blue;
+    border: thin solid $blue-color;
     overflow-y: scroll;  
-    overflow-x: hidden;
+    overflow-x: scroll;
      
     .github-item {
         border-bottom: 4px double #ccc;

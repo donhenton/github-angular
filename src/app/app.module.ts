@@ -17,11 +17,19 @@ import { OnlyNumberDirective } from './components/only-number/only-number.direct
 import { TermPageComponent } from './pages/term-page/term-page.component';
 import { SuggestPageComponent } from './pages/suggest-page/suggest-page.component';
 import { TruncatePipe } from './components/truncate-pipe/truncate.pipe';
-
+import { GraphPageComponent } from './pages/graph-page/graph-page.component';
+import { NvD3Module } from 'ng2-nvd3';
+import 'd3';
+import 'nvd3';
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
   { path: 'suggest-page', component: SuggestPageComponent },
+  {
+    path: 'graph-page', component: GraphPageComponent,
+    resolve: { itemData: GithubService },
+    data: { dataType: 'graph' }
+  },
   {
     path: 'term-page', component: TermPageComponent,
     resolve: { itemData: GithubService },
@@ -46,9 +54,11 @@ const appRoutes: Routes = [
     OnlyNumberDirective,
     TermPageComponent,
     SuggestPageComponent,
+    GraphPageComponent,
   ],
   imports: [
     FormsModule,
+    NvD3Module,
     ReactiveFormsModule,
     HttpModule,
     BrowserModule,

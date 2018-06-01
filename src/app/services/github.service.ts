@@ -48,8 +48,41 @@ export class GithubService implements Resolve<any> {
   public getSuggestion(suggestion): Observable<any> {
     const me = this;
     const urlString = this.URL_BASE + '/search/suggestion?entryText=' + suggestion;
-    return this._http.get(urlString  , this.createRequestOpts())
+    return this._http.get(urlString, this.createRequestOpts())
       .map(res => res.json());
+  }
+
+
+  public getGraphData(): Observable<{}> {
+    const urlBase = this.URL_BASE + '/search/field/histogram?field='; // forks or stars
+    const forksQuery = this._http.get(urlBase + 'forks', this.createRequestOpts()).map(res => res.json());
+    const starsQuery = this._http.get(urlBase + 'stars', this.createRequestOpts()).map(res => res.json());
+
+    const keys = ['forks', 'stars'];
+    return Observable.forkJoin(forksQuery, starsQuery )
+     .map((e)  => {
+          const newStuff = {};
+
+          for (let k = 0; k < 2; k++) {
+
+            const bucketData = e[k]['bucketData'];
+            const graphData = {};
+            graphData['key'] = keys[k] + ' Graph';
+            graphData['values'] = bucketData.map(b => {
+              return {label: b.interval , value: b.count};
+            });
+
+
+
+           // newStuff[keys[k]] = e[k]['bucketData'];
+            newStuff[keys[k]] = graphData;
+
+          }
+
+          return newStuff;
+     });
+
+
   }
 
   private createRequestOpts(): RequestOptions {
@@ -64,10 +97,19 @@ export class GithubService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-    // const dataType:string = route.data['dataType']; // read passed in parameter and use it in an if statement
+    const dataType: string = route.data['dataType']; // read passed in parameter and use it in an if statement
     // for multiple page resolves;
     // return Observable.of({});
-    return this.getTermsData();
+    console.log(`datatype ${dataType}`);
+    switch (dataType) {
+      case 'terms':
+        return this.getTermsData();
+      case 'graph':
+        return this.getGraphData();
+      default:
+    }
+
+
 
   }
 }

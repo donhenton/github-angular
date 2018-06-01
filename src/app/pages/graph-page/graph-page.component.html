@@ -1,0 +1,11 @@
+<h3>Graph of Fork Count Per Interval</h3>
+<div class="row">
+  <form class="form" [formGroup]="graphForm">
+      <label for="fork-select">Forks</label>
+      <input formControlName="graphType" type="radio" id="fork-select" name="graphType" value="forks">
+      <label for="star-select">Stars</label>
+      <input formControlName="graphType" type="radio" id="star-select" name="graphType" value="stars">
+  </form>
+ 
+</div>
+<nvd3   #graph [options]="options" [data]="currentGraphData"></nvd3>
