@@ -4,6 +4,7 @@ import { GithubService } from '../../services/github.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageOffsetComponent } from '../../components/page-offset/page-offset.component';
 import { GithubPage } from '../../services/github.interfaces';
+import {ErrorService} from '../../services/error.service';
 
 @Component({
   selector: 'app-term-page',
@@ -24,6 +25,7 @@ export class TermPageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private errorService: ErrorService,
     private githubService: GithubService) { }
 
 
@@ -42,6 +44,7 @@ export class TermPageComponent implements OnInit {
     this.isValidFormSubmitted = true;
 
     const success = (data: GithubPage) => {
+      this.errorService.processError(null);
       this.isValidFormSubmitted = false;
       this.pageData = data;
       this.totalPages = data.totalPages;
@@ -53,6 +56,9 @@ export class TermPageComponent implements OnInit {
 
       this.isValidFormSubmitted = false;
       this.errorInformation = e.message;
+      this.errorService.processError(e);
+      this.totalPages = 0;
+      this.pageData = null;
     };
 
     let param = this.topic.value;

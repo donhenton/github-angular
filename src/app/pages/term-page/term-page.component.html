@@ -4,17 +4,19 @@
       <div class="well">
         <form [formGroup]="mainForm" class="form" (ngSubmit)="onFormSubmit()">
           <table class="table">
-              <tr>
-                  <td>
-                    <label>Query Type</label>
-                  </td>
-                  <td>  
-                     
-                      <input (change)="queryTypeChange('language',$event)" formControlName="queryType" type="radio" id="type-language"  value="language" > <label for="type-language">Language</label> 
-                      <input (change)="queryTypeChange('topics',$event)" formControlName="queryType" type="radio" id="type-topics"  value="topics"> <label for="type-topics">Topics</label> 
-                     
-                  </td>
-                </tr>
+            <tr>
+              <td>
+                <label>Query Type</label>
+              </td>
+              <td>
+
+                <input (change)="queryTypeChange('language',$event)" formControlName="queryType" type="radio" id="type-language" value="language">
+                <label for="type-language">Language</label>
+                <input (change)="queryTypeChange('topics',$event)" formControlName="queryType" type="radio" id="type-topics" value="topics">
+                <label for="type-topics">Topics</label>
+
+              </td>
+            </tr>
             <tr *ngIf="this.checkQueryType('language')">
               <td>
                 <label for="languageSelector">Languages</label>
@@ -35,15 +37,15 @@
                 </select>
               </td>
             </tr>
-            
+
           </table>
           <div class="row">
-              <app-page-offset #pageOffset name="pageNumber" formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.mainForm"></app-page-offset>
-    
-            </div>
-            <div class="row">
-                <input type="submit" class="btn btn-primary" value="submit">
-            </div>
+            <app-page-offset #pageOffset name="pageNumber" formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.mainForm"></app-page-offset>
+
+          </div>
+          <div class="row">
+            <input type="submit" class="btn btn-primary" value="submit">
+          </div>
         </form>
 
 
@@ -57,8 +59,12 @@
   <div class="column70Right">
 
 
-      <app-github-item [pageData]="this.pageData"></app-github-item>
-   
-  
-    </div>
+    <app-github-item [pageData]="this.pageData"></app-github-item>
+
+
+  </div>
+</div>
+<div class="row">
+
+  <app-error-display></app-error-display>
 </div>

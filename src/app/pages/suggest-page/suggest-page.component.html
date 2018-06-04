@@ -19,38 +19,31 @@
         <tr>
           <td>&nbsp;</td>
           <td>
-            
+
             <ul [ngClass]="getSuggestionListCss()">
-              <li  *ngFor="let entry of entries;"class="selection-item">
-                  <span class="link" (click)="handleClickForEntry(entry,$event)">{{entry.description | truncate : 40 }}</span>
+              <li *ngFor="let entry of entries;" class="selection-item">
+                <span class="link" (click)="handleClickForEntry(entry,$event)">{{entry.description | truncate : 40 }}</span>
               </li>
 
             </ul>
-
-
-
 
           </td>
         </tr>
 
       </table>
-
-
-
     </form>
-
-
-
 
   </div>
 
   <div class="column50Right">
 
-
-      <app-github-item [pageData]="this.pageData"></app-github-item>
-
+    <app-github-item [pageData]="this.pageData"></app-github-item>
 
   </div>
 
+</div>
 
+<div class="row">
+
+  <app-error-display></app-error-display>
 </div>

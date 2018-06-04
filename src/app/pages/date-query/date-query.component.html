@@ -1,31 +1,39 @@
 <div class="row">
   <div class="column30Left">
     <div class="well">
-      
-        <p *ngIf="isValidFormSubmitted && dateForm.pristine" [ngClass] = "'success'">
-            Form submitted successfully.
-        </p>
-        <div *ngIf="dateForm.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
-           {{this.errorInformation}}
-        </div>
+
+      <p *ngIf="isValidFormSubmitted && dateForm.pristine" [ngClass]="'success'">
+        Form submitted successfully.
+      </p>
+      <div *ngIf="dateForm.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass]="'error'">
+        {{this.errorInformation}}
+      </div>
       <form class="form" [formGroup]="dateForm" (ngSubmit)="onFormSubmit()">
         <div class="row"> Dates in (YYYY-MM-DD) format</div>
         <table border="1">
           <tr>
-            <td><label for="startDate">Start Date:</label></td>
-            <td><input formControlName="startDate" type="text" size="15" id="startDate"></td>
+            <td>
+              <label for="startDate">Start Date:</label>
+            </td>
+            <td>
+              <input formControlName="startDate" type="text" size="15" id="startDate">
+            </td>
           </tr>
           <tr>
-              <td><label for="endDate">End Date:</label></td>
-              <td><input formControlName="endDate" type="text" size="15" id="endDate"></td>
-            </tr>
+            <td>
+              <label for="endDate">End Date:</label>
+            </td>
+            <td>
+              <input formControlName="endDate" type="text" size="15" id="endDate">
+            </td>
+          </tr>
 
         </table>
         <div>
           <app-page-offset #pageOffset name="pageNumber" formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.dateForm"></app-page-offset>
 
-        </div>  
-        
+        </div>
+
         <button class="btn  btn-primary">Submit</button>
 
       </form>
@@ -36,7 +44,11 @@
 
 
     <app-github-item [pageData]="this.pageData"></app-github-item>
- 
+
 
   </div>
+</div>
+<div class="row">
+
+  <app-error-display></app-error-display>
 </div>

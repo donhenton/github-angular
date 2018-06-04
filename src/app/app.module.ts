@@ -9,6 +9,7 @@ import { DropdownDirective } from './components/dropdown/dropdown.directive';
 import { MenuDirective } from './components/dropdown/menu.directive';
 import { DateQueryComponent } from './pages/date-query/date-query.component';
 import { GithubService } from './services/github.service';
+import { ErrorService } from './services/error.service';
 import { PageOffsetComponent } from './components/page-offset/page-offset.component';
 import { HomeComponent } from './pages/home/home-page.component';
 import { CommaPipe } from './components/comma-pipe/comma.pipe';
@@ -21,6 +22,7 @@ import { GraphPageComponent } from './pages/graph-page/graph-page.component';
 import { NvD3Module } from 'ng2-nvd3';
 import 'd3';
 import 'nvd3';
+import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
@@ -55,6 +57,7 @@ const appRoutes: Routes = [
     TermPageComponent,
     SuggestPageComponent,
     GraphPageComponent,
+    ErrorDisplayComponent,
   ],
   imports: [
     FormsModule,
@@ -65,7 +68,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
 
   ],
-  providers: [GithubService],
+  providers: [GithubService, ErrorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

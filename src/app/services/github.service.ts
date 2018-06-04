@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SecurityContext } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/mergeMap'; // this puts mergeMap onto observable
 import 'rxjs/add/operator/map';
@@ -7,16 +7,21 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable
 import { GithubPage, GithubResult } from './github.interfaces';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable()
 export class GithubService implements Resolve<any> {
 
 
   private readonly URL_BASE = environment.githubAPIURL; // search/entries/dates
-  constructor(private _http: Http) {
+  constructor(private _http: Http, private sanitizer: DomSanitizer) {
 
 
+  }
+
+  private cleanUp(text) {
+      return encodeURIComponent(this.sanitizer.sanitize(SecurityContext.HTML, text));
+    // return new DOMParser().parseFromString(text, 'text/html').documentElement.textContent; this takes &gt; to '>'
   }
 
 
@@ -31,6 +36,7 @@ export class GithubService implements Resolve<any> {
 
   // http://localhost:9000/github/search/entries/topics?topics=java&pageOffset=0
   public getEntriesByTerms(param, queryType, pageOffset) {
+    param = this.cleanUp(param);
     const me = this;
     const urlString = this.URL_BASE + '/search/entries/' + queryType;
     const queryString = `?${queryType}=${param}&pageOffset=${pageOffset}`;
@@ -47,6 +53,7 @@ export class GithubService implements Resolve<any> {
 
   public getSuggestion(suggestion): Observable<any> {
     const me = this;
+    suggestion = this.cleanUp(suggestion);
     const urlString = this.URL_BASE + '/search/suggestion?entryText=' + suggestion;
     return this._http.get(urlString, this.createRequestOpts())
       .map(res => res.json());
