@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { GithubService } from '../../services/github.service';
 import { GithubResult, GithubPage } from '../../services/github.interfaces';
+import { ErrorService } from '../../services/error.service';
 
 @Component({
   selector: 'app-suggest-page',
@@ -16,7 +17,9 @@ export class SuggestPageComponent implements OnInit {
   loading = false;
 
 
-  constructor(private formBuilder: FormBuilder, private githubService: GithubService) { }
+  constructor(private formBuilder: FormBuilder,
+    private errorService: ErrorService,
+    private githubService: GithubService) { }
 
   ngOnInit() {
 
@@ -56,6 +59,9 @@ export class SuggestPageComponent implements OnInit {
   handleSuggestionError(e) {
     console.log(`error in suggestion ${e.message}`);
     this.loading = false;
+    this.errorService.processError(e);
+    this.entries  = [];
+      this.pageData = null;
   }
 
   formChange(data) {

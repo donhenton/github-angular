@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
-import { momentValidator } from './../../utils/moment.validator';
+import {DATE_FORMAT, momentValidator, checkDates } from './../../utils/moment.validator';
 import {GithubService} from './../../services/github.service';
 import {GithubPage} from './../../services/github.interfaces';
 import { PageOffsetComponent } from '../../components/page-offset/page-offset.component';
+import { ErrorService } from '../../services/error.service';
+
 
 // https://www.concretepage.com/angular-2/angular-2-4-pattern-validation-example
 // https://auth0.com/blog/real-world-angular-series-part-6/
@@ -24,7 +26,9 @@ export class DateQueryComponent implements OnInit {
   currentStartDate: string = null;
   currentEndDate: string = null;
 
-  constructor(private formBuilder: FormBuilder, private githubService: GithubService) { }
+  constructor(private formBuilder: FormBuilder,
+    private errorService: ErrorService,
+    private githubService: GithubService) { }
 
   ngOnInit() {
     this.createDateForm();
@@ -32,8 +36,8 @@ export class DateQueryComponent implements OnInit {
   }
   createDateForm() {
     this.dateForm = this.formBuilder.group({
-      startDate: ['', [Validators.required, momentValidator('YYYY-MM-DD')]],
-      endDate: ['', [Validators.required, momentValidator('YYYY-MM-DD')]],
+      startDate: ['', [Validators.required, momentValidator(DATE_FORMAT)]],
+      endDate: ['', [Validators.required, momentValidator(DATE_FORMAT)]],
       pageNumber: [1, [Validators.required, Validators.min(1)]],
     });
   }
@@ -80,6 +84,15 @@ export class DateQueryComponent implements OnInit {
           return;
         }
       }
+      // now test that start is before end
+       const dateTest = checkDates(this.startDate.value, this.endDate.value);
+
+       if (!dateTest) {
+        this.startDate.setErrors({'momentCheck': true});
+        this.errorInformation = 'Start Date must be before End Date';
+        return;
+       }
+
     }
 
   }
@@ -89,7 +102,9 @@ export class DateQueryComponent implements OnInit {
     this.getError();
     const formRef = this.dateForm;
     if (this.dateForm.invalid) {
-
+      this.pageData = null;
+      this.totalPages = 0;
+      console.log('date form invalid');
       return;
     }
     this.isValidFormSubmitted = true;
@@ -106,6 +121,7 @@ export class DateQueryComponent implements OnInit {
 
       this.isValidFormSubmitted = false;
       this.errorInformation = e.message;
+      this.errorService.processError(e);
     };
 
 
