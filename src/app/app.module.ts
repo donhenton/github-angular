@@ -24,6 +24,7 @@ import 'd3';
 import 'nvd3';
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 
+
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
   { path: 'suggest-page', component: SuggestPageComponent },
@@ -58,6 +59,7 @@ const appRoutes: Routes = [
     SuggestPageComponent,
     GraphPageComponent,
     ErrorDisplayComponent,
+
   ],
   imports: [
     FormsModule,
