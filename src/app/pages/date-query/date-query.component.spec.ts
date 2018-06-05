@@ -43,8 +43,47 @@ describe('DateQueryComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+  // https://www.codesandnotes.be/2017/07/06/writing-and-testing-custom-angular-validators-the-passwords-matching-case/
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return false on bad date', async(() => {
+
+
+    component.dateForm.controls.startDate.patchValue('bonzo');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+       // let field2Model = fixture.debugElement.query(By.css('input[name=field2]')).references['field2Model'];
+       expect(component.dateForm.controls.startDate.valid).toBe(false);
+      // expect(field2Model.valid).toBe(false);
+    });
+  }));
+
+  it('should return true  on good date', async(() => {
+
+
+    component.dateForm.controls.startDate.patchValue('2015-01-01');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+       expect(component.dateForm.controls.startDate.valid).toBe(true);
+    });
+  }));
+
+  it('should return false on error', async(() => {
+
+
+    component.dateForm.controls.startDate.patchValue(null);
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+       expect(component.dateForm.controls.startDate.valid).toBe(false);
+    });
+  }));
+
 });

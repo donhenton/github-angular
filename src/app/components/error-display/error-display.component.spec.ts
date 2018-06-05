@@ -6,13 +6,14 @@ describe('ErrorDisplayComponent', () => {
   let component: ErrorDisplayComponent;
   let fixture: ComponentFixture<ErrorDisplayComponent>;
 
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ErrorDisplayComponent ],
-      providers: [ErrorService],
+      providers: [ErrorService]
     })
     .compileComponents();
-  }));
+  })) ;
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ErrorDisplayComponent);
@@ -24,3 +25,8 @@ describe('ErrorDisplayComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+// https://www.arroyolabs.com/2017/04/angular-2-unit-test-mocks-stubs/
+// https://codecraft.tv/courses/angular/unit-testing/mocks-and-spies/
+//

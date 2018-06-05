@@ -36,7 +36,7 @@ export class ApiError {
 export class ErrorPayload {
 
     constructor(data: any) {
-        this._body = data.body;
+        this._body = data['_body'];
         this.status =  data.status;
         this.ok  = data.okay;
         this.statusText  = data.statusText;

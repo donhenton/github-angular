@@ -12,14 +12,13 @@ function checkDate(control: AbstractControl): ValidationErrors {
     let t = null;
     const invalidObj = { 'momentCheck': true };
     try {
+
           t = moment(dateStr, dateFormat, true);
     } catch (e) {
-        // console.log('in error ' + e.message);
+         console.log('in error ' + e.message);
         return invalidObj;
     }
 
-
-    // console.log(`input date ${dateStr} dateFormat ${dateFormat}  -- ${t.toString()}`);
     if (t.isValid() === false) {
       //  console.log('failed validation');
         return invalidObj;
