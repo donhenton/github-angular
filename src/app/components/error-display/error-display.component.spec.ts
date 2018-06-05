@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ErrorDisplayComponent } from './error-display.component';
+import { ErrorService } from '../../services/error.service';
 
 describe('ErrorDisplayComponent', () => {
   let component: ErrorDisplayComponent;
@@ -8,7 +8,8 @@ describe('ErrorDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorDisplayComponent ]
+      declarations: [ ErrorDisplayComponent ],
+      providers: [ErrorService],
     })
     .compileComponents();
   }));

@@ -27,18 +27,17 @@ export class GraphPageComponent implements OnInit {
 
     this.createForm();
     this.graphForm.valueChanges.subscribe(this.formChange.bind(this));
+    // console.log('a1\n' + JSON.stringify(this.route.data));
 
     this.route.data
       .subscribe((data) => {
-
         this.options = this.setOptions(data);
         this.allGraphData = data;
         this.setData();
-
-
       });
 
   }
+
 
   formChange(data) {
 
@@ -55,7 +54,6 @@ export class GraphPageComponent implements OnInit {
   setData() {
 
     const modData = this.allGraphData['itemData'][this.currentGraph];
-
     this.currentGraphData = [modData];
 
 

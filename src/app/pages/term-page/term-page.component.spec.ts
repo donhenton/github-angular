@@ -16,6 +16,7 @@ import { ErrorService } from './../../services/error.service';
 import { GithubService } from '../../services/github.service';
 import { HttpModule } from '@angular/http';
 import { uniqueData } from './../../../../testing/uniquetopics';
+
 // https://stackoverflow.com/questions/45811379/angular2-unit-testing-a-component-with-route-resolve
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable

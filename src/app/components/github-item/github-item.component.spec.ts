@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GithubItemComponent } from './github-item.component';
+import { CommaPipe } from '../comma-pipe/comma.pipe';
 
 describe('GithubItemComponent', () => {
   let component: GithubItemComponent;
@@ -8,7 +9,7 @@ describe('GithubItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GithubItemComponent ]
+      declarations: [ GithubItemComponent, CommaPipe, ]
     })
     .compileComponents();
   }));

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageOffsetComponent } from './page-offset.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('PageOffsetComponent', () => {
   let component: PageOffsetComponent;
@@ -8,6 +10,13 @@ describe('PageOffsetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserModule,
+
+
+      ],
       declarations: [ PageOffsetComponent ]
     })
     .compileComponents();

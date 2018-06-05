@@ -31,8 +31,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    console.log(compiled);
     expect(compiled.querySelector('figure').textContent).toContain('Browser');
   }));
 });
+
 
