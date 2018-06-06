@@ -18,6 +18,10 @@ import { HttpModule } from '@angular/http';
 import { uniqueData } from './../../../../testing/uniquetopics';
 
 // https://stackoverflow.com/questions/45811379/angular2-unit-testing-a-component-with-route-resolve
+// https://blog.thoughtram.io/angular/2016/11/28/testing-services-with-http-in-angular-2.html
+
+
+
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable
 
@@ -64,7 +68,6 @@ describe('TermPageComponent', () => {
       component = fixture.componentInstance;
 
   }));
-
 
     it('should create',   ( ) => {
 

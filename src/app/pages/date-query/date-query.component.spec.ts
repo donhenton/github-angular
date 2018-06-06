@@ -12,10 +12,14 @@ import { GithubItemComponent } from '../../components/github-item/github-item.co
 import { GithubService } from '../../services/github.service';
 import { ErrorService } from '../../services/error.service';
 import { PageOffsetComponent } from '../../components/page-offset/page-offset.component';
+import { Observable } from 'rxjs/Observable';
+import { GithubPage } from '../../services/github.interfaces';
 
 describe('DateQueryComponent', () => {
   let component: DateQueryComponent;
   let fixture: ComponentFixture<DateQueryComponent>;
+  let githubServiceRef;
+  let errorServiceRef;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,6 +45,8 @@ describe('DateQueryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DateQueryComponent);
     component = fixture.componentInstance;
+    githubServiceRef = fixture.debugElement.injector.get(GithubService);
+    errorServiceRef = fixture.debugElement.injector.get(ErrorService);
     fixture.detectChanges();
   });
   // https://www.codesandnotes.be/2017/07/06/writing-and-testing-custom-angular-validators-the-passwords-matching-case/
@@ -48,42 +54,67 @@ describe('DateQueryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return false on bad date', async(() => {
+  it('set form with bad start Date', () => {
+
+     component.dateForm.patchValue({'startDate': '2012-01-01', endDate: 'bonzo'});
+     component.onFormSubmit();
+     expect(component.dateForm.invalid).toBe(true);
+     component.dateForm.patchValue({'startDate': '2012-01-01', endDate: ''});
+     component.onFormSubmit();
+     expect(component.dateForm.invalid).toBe(true);
+     component.dateForm.patchValue({'startDate': '2012-01-01', endDate: '2011-34-76'});
+     component.onFormSubmit();
+
+     component.dateForm.patchValue({'endDate': '2012-01-01', startDate: 'bonzo'});
+     component.onFormSubmit();
+     expect(component.dateForm.invalid).toBe(true);
+     component.dateForm.patchValue({'endDate': '2012-01-01', startDate: ''});
+     component.onFormSubmit();
+     expect(component.dateForm.invalid).toBe(true);
+     component.dateForm.patchValue({'endDate': '2012-01-01', startDate: '2011-34-76'});
+     component.onFormSubmit();
+     expect(component.dateForm.invalid).toBe(true);
+
+     component.dateForm.patchValue({'endDate': '2012-01-01', startDate: '2016-01-01'});
+     component.onFormSubmit();
+     expect(component.dateForm.invalid).toBe(true);
+
+  });
+
+  it('set form with good dates', () => {
+
+    const gPage: GithubPage = new GithubPage();
+    gPage.pageOffset = 1;
+    gPage.perPageCount = 25;
+    gPage.totalPages = 100;
+
+    const spy = spyOn(githubServiceRef, 'getEntriesByDate').and.returnValue(Observable.of(gPage));
+    component.dateForm.patchValue({'startDate': '2012-01-01', endDate: '2015-01-01'});
+    component.onFormSubmit();
+    expect(component.dateForm.invalid).toBe(false);
+    expect(component.totalPages).toEqual(gPage.totalPages);
 
 
-    component.dateForm.controls.startDate.patchValue('bonzo');
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
 
-       // let field2Model = fixture.debugElement.query(By.css('input[name=field2]')).references['field2Model'];
-       expect(component.dateForm.controls.startDate.valid).toBe(false);
-      // expect(field2Model.valid).toBe(false);
-    });
-  }));
+  });
+  it('test rxjs error', () => {
 
-  it('should return true  on good date', async(() => {
+    const gPage: GithubPage = new GithubPage();
+    gPage.pageOffset = 1;
+    gPage.perPageCount = 25;
+    gPage.totalPages = 100;
 
 
-    component.dateForm.controls.startDate.patchValue('2015-01-01');
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-
-       expect(component.dateForm.controls.startDate.valid).toBe(true);
-    });
-  }));
-
-  it('should return false on error', async(() => {
+    const spy = spyOn(githubServiceRef, 'getEntriesByDate').and.returnValue(Observable.throw('frump'));
+    const spyError = spyOn(errorServiceRef, 'processError').and.returnValue({});
+    component.dateForm.patchValue({'startDate': '2012-01-01', endDate: '2015-01-01'});
+    component.isValidFormSubmitted = true;
+    component.onFormSubmit();
+    expect(component.dateForm.invalid).toBe(false);
+    expect(component.isValidFormSubmitted).toBe(false);
 
 
-    component.dateForm.controls.startDate.patchValue(null);
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
 
-       expect(component.dateForm.controls.startDate.valid).toBe(false);
-    });
-  }));
+  });
 
 });

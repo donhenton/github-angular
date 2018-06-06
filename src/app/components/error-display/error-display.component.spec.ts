@@ -51,7 +51,7 @@ describe('ErrorDisplayComponent', () => {
 
   it('should create', () => {
     const serv = fixture.debugElement.injector.get(ErrorService);
-    console.log(serv);
+   // console.log(serv);
     expect(component).toBeTruthy();
   });
 

@@ -15,7 +15,7 @@ export class ErrorDisplayComponent implements OnInit {
   ngOnInit() {
 
     this.errorService.getErrorProvider().subscribe( (apiError: ApiError) => {
-        console.log('got an error ' + JSON.stringify(apiError));
+       // console.log('got an error ' + JSON.stringify(apiError));
         if (apiError) {
           this.error = apiError;
         } else {
