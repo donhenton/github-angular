@@ -22,5 +22,13 @@ describe('TruncatePipe', () => {
      expect(t).toEqual(valueExpected);
 
   });
+  it('test truncate output without defaults', () => {
+
+    const testIn =  '12345 12345 12345 12345 12345 12345';
+    const valueExpected = '12345%%%';
+    const t = pipe.transform(testIn, 10, '%%%');
+    expect(t).toEqual(valueExpected);
+
+ });
 
 });

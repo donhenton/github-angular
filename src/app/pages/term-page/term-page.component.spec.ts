@@ -24,17 +24,20 @@ import { uniqueData } from './../../../../testing/uniquetopics';
 
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx'; // NOT from 'rxjs/Rx/Observable
+import { GithubPage } from '../../services/github.interfaces';
 
 describe('TermPageComponent', () => {
   let component: TermPageComponent;
   let fixture: ComponentFixture<TermPageComponent>;
   let routeStub;
+  let githubServiceRef;
+  let errorServiceRef;
 
   beforeEach(async(() => {
 
     routeStub = {
 
-      data:  null
+      data: null
 
     };
 
@@ -63,24 +66,65 @@ describe('TermPageComponent', () => {
     })
       .compileComponents();
 
-      routeStub.data = Observable.of({'itemData': uniqueData});
-      fixture = TestBed.createComponent(TermPageComponent);
-      component = fixture.componentInstance;
+    routeStub.data = Observable.of({ 'itemData': uniqueData });
+    fixture = TestBed.createComponent(TermPageComponent);
+    githubServiceRef = fixture.debugElement.injector.get(GithubService);
+    errorServiceRef = fixture.debugElement.injector.get(ErrorService);
+    spyOn(errorServiceRef, 'processError').and.returnValue({});
+    fixture.detectChanges();
+    component = fixture.componentInstance;
 
   }));
 
-    it('should create',   ( ) => {
+  it('should create', () => {
 
-      const activatedRouteStub = fixture.debugElement.injector.get(ActivatedRoute);
-     // console.log(activatedRouteStub.data);
-      fixture.detectChanges();
-      fixture.whenStable().then(() => {
+    const activatedRouteStub = fixture.debugElement.injector.get(ActivatedRoute);
+    // console.log(activatedRouteStub.data);
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
 
-        expect(component).toBeTruthy();
+      expect(component).toBeTruthy();
 
-
-      });
 
     });
+
+  });
+
+  it('test paginator changes', () => {
+    const resetCall = spyOn(component.paginator, 'reset');
+    component.queryTypeChange('forks', null);
+    expect(resetCall).toHaveBeenCalled();
+
+  });
+
+  it('test change Select', () => {
+    const resetCall = spyOn(component.paginator, 'reset');
+    component.changeSelect(null);
+    expect(resetCall).toHaveBeenCalled();
+
+  });
+
+  it('test formSubmit error', () => {
+    const spy = spyOn(githubServiceRef, 'getEntriesByTerms').and.returnValue(Observable.throw('frump'));
+    component.isValidFormSubmitted = true;
+    component.queryType = 'language';
+    component.onFormSubmit();
+    expect(component.isValidFormSubmitted).toBe(false);
+
+  });
+
+  it('test formSubmit', () => {
+    const gPage: GithubPage = new GithubPage();
+    gPage.pageOffset = 1;
+    gPage.perPageCount = 25;
+    gPage.totalPages = 100;
+    const spy = spyOn(githubServiceRef, 'getEntriesByTerms').and.returnValue(Observable.of(gPage));
+    component.isValidFormSubmitted = true;
+    component.queryType = 'bonzo';
+    component.onFormSubmit();
+    expect(component.isValidFormSubmitted).toBe(false);
+
+  });
+
 
 });
