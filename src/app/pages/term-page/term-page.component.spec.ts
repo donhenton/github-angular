@@ -14,7 +14,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HomeComponent } from '../home/home-page.component';
 import { ErrorService } from './../../services/error.service';
 import { GithubService } from '../../services/github.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { uniqueData } from './../../../../testing/uniquetopics';
 
 // https://stackoverflow.com/questions/45811379/angular2-unit-testing-a-component-with-route-resolve
@@ -46,7 +47,8 @@ describe('TermPageComponent', () => {
       imports: [
         FormsModule,
         NvD3Module,
-        HttpModule,
+        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserModule,
 
@@ -79,7 +81,6 @@ describe('TermPageComponent', () => {
   it('should create', () => {
 
     const activatedRouteStub = fixture.debugElement.injector.get(ActivatedRoute);
-    // console.log(activatedRouteStub.data);
     fixture.detectChanges();
     fixture.whenStable().then(() => {
 

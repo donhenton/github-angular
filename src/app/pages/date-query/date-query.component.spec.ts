@@ -1,8 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// https://medium.com/spektrakel-blog/angular-testing-snippets-httpclient-d1dc2f035eb8
 
+
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DateQueryComponent } from './date-query.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { SuggestPageComponent } from '../suggest-page/suggest-page.component';
 import { CommaPipe } from '../../components/comma-pipe/comma.pipe';
@@ -25,7 +28,8 @@ describe('DateQueryComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        HttpModule,
+        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserModule,
       ],
@@ -37,7 +41,7 @@ describe('DateQueryComponent', () => {
           ErrorDisplayComponent,
           GithubItemComponent],
 
-      providers: [GithubService, ErrorService, ],
+      providers: [GithubService, ErrorService ],
     })
       .compileComponents();
   }));
@@ -80,6 +84,10 @@ describe('DateQueryComponent', () => {
      expect(component.dateForm.invalid).toBe(true);
 
   });
+
+
+
+
 
   it('set form with good dates', () => {
 

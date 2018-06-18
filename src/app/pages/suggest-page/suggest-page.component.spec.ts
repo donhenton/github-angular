@@ -8,7 +8,8 @@ import { CommaPipe } from '../../components/comma-pipe/comma.pipe';
 import { TruncatePipe } from '../../components/truncate-pipe/truncate.pipe';
 import { ErrorService } from './../../services/error.service';
 import { GithubService } from '../../services/github.service';
-import { HttpModule, Http, XHRBackend } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { suggestions } from './../../../../testing/testSuggestions';
 import { GithubResult } from '../../services/github.interfaces';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +20,7 @@ describe('SuggestPageComponent', () => {
   let fixture: ComponentFixture<SuggestPageComponent>;
   let errorServiceRef = null;
   let githubServiceRef = null;
-  let httpRef = null;
+  const httpRef = null;
 
   beforeEach(async(() => {
 
@@ -27,7 +28,8 @@ describe('SuggestPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        HttpModule,
+        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserModule,
       ],
@@ -38,7 +40,7 @@ describe('SuggestPageComponent', () => {
           ErrorDisplayComponent,
           GithubItemComponent],
 
-      providers: [GithubService, ErrorService, { provide: XHRBackend, useClass: MockBackend }],
+      providers: [GithubService, ErrorService ],
     })
       .compileComponents();
   }));
@@ -48,7 +50,7 @@ describe('SuggestPageComponent', () => {
     component = fixture.componentInstance;
     errorServiceRef = fixture.debugElement.injector.get(ErrorService);
     githubServiceRef = fixture.debugElement.injector.get(GithubService);
-    httpRef = fixture.debugElement.injector.get(Http);
+
     fixture.detectChanges();
 
 
@@ -159,7 +161,7 @@ describe('SuggestPageComponent', () => {
 
 
     });
-    fit('test formChange with bad suggestion', () => {
+    it('test formChange with bad suggestion', () => {
 
      // component.suggestForm.patchValue({ suggestion: 'f' });
      // spy = spyOn(githubServiceRef, 'getSuggestion').and.returnValue(Observable.of(entry));
