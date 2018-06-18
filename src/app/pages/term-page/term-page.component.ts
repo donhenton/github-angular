@@ -43,7 +43,7 @@ export class TermPageComponent implements OnInit {
 
     this.isValidFormSubmitted = true;
 
-    const success = (data: GithubPage) => {
+    const success = (data ) => {
       this.errorService.processError(null);
       this.isValidFormSubmitted = false;
       this.pageData = data;

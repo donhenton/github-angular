@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DropdownDirective } from './components/dropdown/dropdown.directive';
 import { MenuDirective } from './components/dropdown/menu.directive';
@@ -65,7 +65,7 @@ const appRoutes: Routes = [
     FormsModule,
     NvD3Module,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes)
 

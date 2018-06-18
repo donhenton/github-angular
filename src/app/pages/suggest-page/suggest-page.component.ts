@@ -34,6 +34,7 @@ export class SuggestPageComponent implements OnInit {
   }
 
   getSuggestion(data) {
+    console.log('http mock returned ' + JSON.stringify(data));
     const suggestions: GithubResult[] = data['suggestions'];
     this.loading = false;
     if (suggestions) {
