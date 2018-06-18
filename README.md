@@ -25,3 +25,20 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Running the Application
+
+
+## Start Docker Elk
+* clone this repository: https://github.com/donhenton/docker-elk (ES frozen at 6.3.0)
+* docker-compose up -d
+
+## Start the Rest Service
+* clone this repository: https://github.com/donhenton/elastic-demo
+* mvn clean spring-boot:run -DskipTests
+* swagger documentation at http://localhost:9000/swagger-ui.html
+
+## Start this application
+* ng serve --open
+* http://localhost:4200
+
