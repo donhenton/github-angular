@@ -5,6 +5,7 @@ import {GithubService} from './../../services/github.service';
 import {GithubPage} from './../../services/github.interfaces';
 import { PageOffsetComponent } from '../../components/page-offset/page-offset.component';
 import { ErrorService } from '../../services/error.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 // https://www.concretepage.com/angular-2/angular-2-4-pattern-validation-example
@@ -109,15 +110,15 @@ export class DateQueryComponent implements OnInit {
     }
     this.isValidFormSubmitted = true;
 
-    const success = (data) => {
+    const success = (data: GithubPage ) => {
       this.isValidFormSubmitted = false;
       this.pageData = data;
       this.totalPages = data.totalPages;
 
 
     };
-
-    const error = (e) => {
+   // https://angular.io/guide/http
+    const error = (e: HttpErrorResponse) => {
 
       this.isValidFormSubmitted = false;
       this.errorInformation = e.message;

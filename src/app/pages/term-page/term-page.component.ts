@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageOffsetComponent } from '../../components/page-offset/page-offset.component';
 import { GithubPage } from '../../services/github.interfaces';
 import {ErrorService} from '../../services/error.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-term-page',
@@ -43,7 +44,7 @@ export class TermPageComponent implements OnInit {
 
     this.isValidFormSubmitted = true;
 
-    const success = (data ) => {
+    const success = (data: GithubPage) => {
       this.errorService.processError(null);
       this.isValidFormSubmitted = false;
       this.pageData = data;
@@ -52,7 +53,7 @@ export class TermPageComponent implements OnInit {
 
     };
 
-    const error = (e) => {
+    const error = (e: HttpErrorResponse) => {
 
       this.isValidFormSubmitted = false;
       this.errorInformation = e.message;

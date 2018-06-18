@@ -25,7 +25,7 @@ export class GithubService implements Resolve<any> {
   }
 
 
-  public getEntriesByDate(start, end, pageOffset) {
+  public getEntriesByDate(start, end, pageOffset): Observable<GithubPage> {
 
     const me = this;
     const queryString = `?start=${start}&end=${end}&pageOffset=${pageOffset}`;
@@ -89,7 +89,7 @@ export class GithubService implements Resolve<any> {
 
   }
 
-  private createRequestOpts(): any {
+  private createRequestOpts():   {headers: HttpHeaders} {
     const headers = new HttpHeaders({
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
