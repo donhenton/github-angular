@@ -24,7 +24,8 @@ export class SuggestPageComponent implements OnInit {
   ngOnInit() {
 
     this.createForm();
-    this.suggestForm.valueChanges.debounceTime(500).subscribe(this.formChange.bind(this));
+    const formHandler = this.formChange.bind(this);
+    this.suggestForm.valueChanges.debounceTime(500).subscribe(formHandler);
   }
 
   createForm() {
