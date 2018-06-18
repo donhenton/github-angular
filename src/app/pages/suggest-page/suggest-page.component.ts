@@ -24,7 +24,7 @@ export class SuggestPageComponent implements OnInit {
   ngOnInit() {
 
     this.createForm();
-    this.suggestForm.valueChanges.subscribe(this.formChange.bind(this));
+    this.suggestForm.valueChanges.debounceTime(500).subscribe(this.formChange.bind(this));
   }
 
   createForm() {
@@ -34,7 +34,7 @@ export class SuggestPageComponent implements OnInit {
   }
 
   getSuggestion(data) {
-    console.log('http mock returned ' + JSON.stringify(data));
+
     const suggestions: GithubResult[] = data['suggestions'];
     this.loading = false;
     if (suggestions) {
