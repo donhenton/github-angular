@@ -34,7 +34,7 @@ export class GithubService implements Resolve<any> {
         .set('pageOffset', pageOffset);
 
 
-    return this._http.get<GithubPage>(this.URL_BASE + '/search/entries/dates' , this.createRequestOpts(httpParams));
+    return this._http.get<GithubPage>(this.URL_BASE + 'search/entries/dates' , this.createRequestOpts(httpParams));
 
 
   }
@@ -43,7 +43,7 @@ export class GithubService implements Resolve<any> {
   public getEntriesByTerms(param, queryType, pageOffset) {
     param = this.cleanUp(param);
     const me = this;
-    const urlString = this.URL_BASE + '/search/entries/' + queryType;
+    const urlString = this.URL_BASE + 'search/entries/' + queryType;
     const httpParams = new HttpParams()
     .set(queryType, param)
     .set('pageOffset', pageOffset);
@@ -54,7 +54,7 @@ export class GithubService implements Resolve<any> {
 
   public getTermsData(): Observable<any> {
 
-    return this._http.get <any>(this.URL_BASE + '/search/uniqueterms', this.createRequestOpts());
+    return this._http.get <any>(this.URL_BASE + 'search/uniqueterms', this.createRequestOpts());
   }
 
 
@@ -70,7 +70,7 @@ export class GithubService implements Resolve<any> {
 
 
   public getGraphData(): Observable<{}> {
-    const urlBase = this.URL_BASE + '/search/field/histogram'; // forks or stars
+    const urlBase = this.URL_BASE + 'search/field/histogram'; // forks or stars
     const httpParamsForks = new HttpParams()
     .set('field', 'forks');
     const httpParamsStars = new HttpParams()

@@ -46,7 +46,7 @@ describe('GithubService Tests', () => {
                 const end = '2014-01-01';
                 const pageOffset = 12;
                 const queryString = `?start=${start}&end=${end}&pageOffset=${pageOffset}`;
-                const stringMatch = URL_BASE + '/search/entries/dates' + queryString;
+                const stringMatch = URL_BASE + 'search/entries/dates' + queryString;
 
                 githubService.getEntriesByDate(start, end, pageOffset).subscribe(data => {
 
@@ -102,8 +102,8 @@ describe('GithubService Tests', () => {
                 const start = '2011-01-01';
                 const end = '2014-01-01';
                 const pageOffset = 12;
-                const stringMatchForks = URL_BASE + '/search/field/histogram?field=forks';
-                const stringMatchStars = URL_BASE + '/search/field/histogram?field=stars';
+                const stringMatchForks = URL_BASE + 'search/field/histogram?field=forks';
+                const stringMatchStars = URL_BASE + 'search/field/histogram?field=stars';
 
                 githubService.getGraphData().subscribe(data => {
 
@@ -170,7 +170,7 @@ describe('GithubService Tests', () => {
             const queryType = 'topics';
             const param = 'java';
             const pageOffset = 0;
-            const urlString =  URL_BASE + '/search/entries/' + queryType;
+            const urlString =  URL_BASE + 'search/entries/' + queryType;
             const queryString = `?${queryType}=${param}&pageOffset=${pageOffset}`;
             const stringMatch = urlString + queryString;
             const retData = {'fred': 100};
