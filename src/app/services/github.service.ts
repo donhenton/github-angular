@@ -1,5 +1,5 @@
 import { Injectable, SecurityContext } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/mergeMap'; // this puts mergeMap onto observable
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
@@ -28,8 +28,13 @@ export class GithubService implements Resolve<any> {
   public getEntriesByDate(start, end, pageOffset): Observable<GithubPage> {
 
     const me = this;
-    const queryString = `?start=${start}&end=${end}&pageOffset=${pageOffset}`;
-    return this._http.get<GithubPage>(this.URL_BASE + '/search/entries/dates' + queryString, this.createRequestOpts());
+    const httpParams = new HttpParams()
+        .set('start', start)
+        .set('end', end)
+        .set('pageOffset', pageOffset);
+
+
+    return this._http.get<GithubPage>(this.URL_BASE + '/search/entries/dates' , this.createRequestOpts(httpParams));
 
 
   }
@@ -39,8 +44,12 @@ export class GithubService implements Resolve<any> {
     param = this.cleanUp(param);
     const me = this;
     const urlString = this.URL_BASE + '/search/entries/' + queryType;
-    const queryString = `?${queryType}=${param}&pageOffset=${pageOffset}`;
-    return this._http.get(urlString + queryString, this.createRequestOpts());
+    const httpParams = new HttpParams()
+    .set(queryType, param)
+    .set('pageOffset', pageOffset);
+
+
+    return this._http.get(urlString , this.createRequestOpts(httpParams));
   }
 
   public getTermsData(): Observable<any> {
@@ -52,15 +61,22 @@ export class GithubService implements Resolve<any> {
   public getSuggestion(suggestion): Observable<any> {
     const me = this;
     suggestion = this.cleanUp(suggestion);
-    const urlString = this.URL_BASE + '/search/suggestion?entryText=' + suggestion;
-    return this._http.get(urlString, this.createRequestOpts());
+    const urlString = this.URL_BASE + 'search/suggestion';
+    const httpParams = new HttpParams()
+    .set('entryText', suggestion);
+
+    return this._http.get(urlString, this.createRequestOpts(httpParams));
   }
 
 
   public getGraphData(): Observable<{}> {
-    const urlBase = this.URL_BASE + '/search/field/histogram?field='; // forks or stars
-    const forksQuery = this._http.get(urlBase + 'forks', this.createRequestOpts());
-    const starsQuery = this._http.get(urlBase + 'stars', this.createRequestOpts());
+    const urlBase = this.URL_BASE + '/search/field/histogram'; // forks or stars
+    const httpParamsForks = new HttpParams()
+    .set('field', 'forks');
+    const httpParamsStars = new HttpParams()
+    .set('field', 'stars');
+    const forksQuery = this._http.get(urlBase , this.createRequestOpts(httpParamsForks));
+    const starsQuery = this._http.get(urlBase , this.createRequestOpts(httpParamsStars));
 
     const keys = ['forks', 'stars'];
     return Observable.forkJoin(forksQuery, starsQuery )
@@ -89,14 +105,14 @@ export class GithubService implements Resolve<any> {
 
   }
 
-  private createRequestOpts():   {headers: HttpHeaders} {
+  private createRequestOpts(params= new HttpParams()):   {headers: HttpHeaders, params: HttpParams} {
     const headers = new HttpHeaders({
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
       'Access-Control-Allow-Origin': '*'
     });
-
-    return   { headers: headers };
+    const ret = { headers: headers, params: params };
+    return   ret;
   }
 
 

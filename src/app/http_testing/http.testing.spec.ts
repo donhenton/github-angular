@@ -75,28 +75,9 @@ describe('Http Testing Samples', () => {
     );
 
 
-    it(`should demonstrate faking a service in real code`,
-        async(inject([GithubService, HttpTestingController],
-            (githubService: GithubService, backend: HttpTestingController) => {
-                //    this.URL_BASE + '/search/suggestion?entryText='
-                ///////////////////////////////////////////
-                const stringMatch = URL_BASE + '/search/suggestion?entryText=fred';
-                githubService.getSuggestion('fred').subscribe((s) => {
-                    expect(s.bonzo).toEqual(35);
-                });
-
-                backend.expectOne(stringMatch).flush({ 'bonzo': 35 }, { status: 200, statusText: 'Ok' });
-
-                ///////////////////////////////////////////
-
-            }
-        ))
-
-    );
-
-
-
-
+// https://github.com/angular/angular/issues/19974
+// must use a function for matching when only one parameter
+// its a bug, Jim
 
 
     it(`should fake data for component`,
@@ -111,17 +92,26 @@ describe('Http Testing Samples', () => {
                 component.loading = false;
 
                 ///////////////////////////////////////////
-                const stringMatch = URL_BASE + '/search/suggestion?entryText=fred';
+
                 component.formChange(null);
-                backend.expectOne(stringMatch).flush(entry, { status: 200, statusText: 'Ok' });
+                backend.expectOne((req) => {
+
+                    const mVal =   req.method === 'GET' && req.url === (URL_BASE + 'search/suggestion');
+                    console.log(`match ${mVal} ${req.url}`)     ;
+                   return mVal;
+                })
+                .flush(entry, { status: 200, statusText: 'Ok' });
 
                 fixture.whenStable().then(() => {
+
                     fixture.detectChanges();
                     console.log('peforming expectation ');
                     expect(component.entries.length).toEqual(1);
                     expect(component.entries[0].name).toEqual('rome');
 
                 });
+
+
                 ///////////////////////////////////////////
 
             }
