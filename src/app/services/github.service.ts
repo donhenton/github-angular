@@ -129,8 +129,7 @@ export class GithubService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
     const dataType: string = route.data['dataType']; // read passed in parameter and use it in an if statement
-    // for multiple page resolves;
-    // return Observable.of({});
+
     console.log(`datatype ${dataType}`);
     switch (dataType) {
       case 'terms':

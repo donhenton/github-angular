@@ -49,11 +49,11 @@ export class DescriptionSearchComponent implements OnInit {
       this.currentTerm = data.searchTerm;
 
     }
-     if (this.currentTerm !== data.searchTerm) {
+    if (this.currentTerm !== data.searchTerm) {
 
-         console.log('resetting paginator');
-        this.paginator.reset();
-     }
+      console.log('resetting paginator');
+      this.paginator.reset();
+    }
 
   }
 
