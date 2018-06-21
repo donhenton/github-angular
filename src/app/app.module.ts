@@ -23,10 +23,12 @@ import { NvD3Module } from 'ng2-nvd3';
 import 'd3';
 import 'nvd3';
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
+import { DescriptionSearchComponent } from './pages/description-search/description-search/description-search.component';
 
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
+  { path: 'description-search', component: DescriptionSearchComponent },
   { path: 'suggest-page', component: SuggestPageComponent },
   {
     path: 'graph-page', component: GraphPageComponent,
@@ -59,6 +61,7 @@ const appRoutes: Routes = [
     SuggestPageComponent,
     GraphPageComponent,
     ErrorDisplayComponent,
+    DescriptionSearchComponent,
 
   ],
   imports: [

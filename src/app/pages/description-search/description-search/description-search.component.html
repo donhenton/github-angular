@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="column30Left">
+    <div class="well">
+
+      <p *ngIf="isValidFormSubmitted && termForm.pristine" [ngClass]="'success'">
+        Form submitted successfully.
+      </p>
+      <div *ngIf="termForm.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass]="'error'">
+        {{this.errorInformation}}
+      </div>
+      <form class="form" [formGroup]="termForm" (ngSubmit)="onFormSubmit()">
+        
+        <table>
+          <tr>
+            <td>
+              <label for="searchTerm">Search Term</label>
+            </td>
+            <td>
+              <input formControlName="searchTerm" type="text" size="25" id="searchTerm">
+            </td>
+          </tr>
+           
+
+        </table>
+        <div>
+          <app-page-offset #pageOffset name="pageNumber" formControlName="pageNumber" [totalPages]="this.totalPages" [parentForm]="this.termForm"></app-page-offset>
+
+        </div>
+
+        <button class="btn  btn-primary">Submit</button>
+
+      </form>
+    </div>
+
+  </div>
+  <div class="column70Right">
+
+
+    <app-github-item [pageData]="this.pageData"></app-github-item>
+
+
+  </div>
+</div>
+<div class="row">
+
+  <app-error-display></app-error-display>
+</div>

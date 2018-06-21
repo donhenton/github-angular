@@ -39,6 +39,15 @@ export class GithubService implements Resolve<any> {
 
   }
 
+  public getDescriptionSearch(searchTerm: string, pageOffset ): Observable<GithubPage> {
+    const httpParams = new HttpParams()
+    .set('searchTerm', searchTerm)
+    .set('pageOffset', pageOffset);
+
+    return this._http.get<GithubPage>(this.URL_BASE + 'search/description' , this.createRequestOpts(httpParams));
+
+  }
+
   // http://localhost:9000/github/search/entries/topics?topics=java&pageOffset=0
   public getEntriesByTerms(param, queryType, pageOffset) {
     param = this.cleanUp(param);
