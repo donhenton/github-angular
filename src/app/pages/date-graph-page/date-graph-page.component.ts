@@ -26,13 +26,17 @@ export class DateGraphPageComponent implements OnInit {
         top: 20,
         right: 20,
         bottom: 50,
-        left: 55
+        left: 75
       },
       x: function (d) { return d.label; },
-      y: function (d) { return d.value; },
+      y: function (d) {
+           return d3.format('s')(parseInt(d.value, 10));
+       // return d.value;
+      },
       showValues: true,
       valueFormat: function (d) {
-        return d3.format(',')(d);
+         return d3.format(',d')(d);
+
       },
       duration: 500,
       xAxis: {
@@ -40,7 +44,7 @@ export class DateGraphPageComponent implements OnInit {
       },
       yAxis: {
         axisLabel: 'Count',
-        axisLabelDistance: -10
+        axisLabelDistance:  0
       }
     }
   };
