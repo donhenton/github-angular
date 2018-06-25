@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
  githubAPIURL: 'http://localhost:9000/github/',
+ swaggerURL: 'http://localhost:9000/swagger-ui.html'
 };
 

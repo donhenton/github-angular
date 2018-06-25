@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {environment} from './../../../environments/environment';
 
 @Component({
 
@@ -9,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  swaggerURL;
+  constructor() {
+    this.swaggerURL = environment.swaggerURL;
+   }
 
   ngOnInit() {
   }
