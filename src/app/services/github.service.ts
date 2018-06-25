@@ -77,6 +77,13 @@ export class GithubService implements Resolve<any> {
     return this._http.get(urlString, this.createRequestOpts(httpParams));
   }
 
+  public getDataByMonth(year: string) {
+    const urlString = this.URL_BASE + 'search/year/histogram';
+    const httpParams = new HttpParams()
+    .set('year', year);
+    return this._http.get(urlString, this.createRequestOpts(httpParams));
+
+  }
 
   public getGraphData(): Observable<{}> {
     const urlBase = this.URL_BASE + 'search/field/histogram'; // forks or stars

@@ -24,12 +24,14 @@ import 'd3';
 import 'nvd3';
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 import { DescriptionSearchComponent } from './pages/description-search/description-search/description-search.component';
+import { DateGraphPageComponent } from './pages/date-graph-page/date-graph-page.component';
 
 
 const appRoutes: Routes = [
   { path: 'date-query', component: DateQueryComponent },
   { path: 'description-search', component: DescriptionSearchComponent },
   { path: 'suggest-page', component: SuggestPageComponent },
+  { path: 'date-graph-page', component:  DateGraphPageComponent},
   {
     path: 'graph-page', component: GraphPageComponent,
     resolve: { itemData: GithubService },
@@ -62,6 +64,7 @@ const appRoutes: Routes = [
     GraphPageComponent,
     ErrorDisplayComponent,
     DescriptionSearchComponent,
+    DateGraphPageComponent,
 
   ],
   imports: [
