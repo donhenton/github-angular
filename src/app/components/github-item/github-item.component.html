@@ -8,10 +8,7 @@
                   <h3>{{g.name}}</h3>
 
                </div>
-             <div class="row github-description">
-                {{g.description}}
-
-             </div>
+             <div  [innerHTML]="getDescriptionText(g)"  class="row github-description"></div>
              <div class="row">
                 <span class="github-metalabel">Stars:</span><span class="github-metadata">{{g.starCount}}</span>
                 <span class="github-metalabel">Watchers:</span><span class="github-metadata">{{g.watcherCount}}</span>
@@ -30,3 +27,5 @@
     </div>
 
   </div> 
+
+ 

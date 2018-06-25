@@ -33,7 +33,7 @@ export class DescriptionSearchComponent implements OnInit {
   ngOnInit() {
 
     this.createTermForm();
-    this.termForm.valueChanges.subscribe(this.formChange.bind(this));
+    this.termForm.valueChanges.debounceTime(300).subscribe(this.formChange.bind(this));
   }
 
   createTermForm() {
@@ -49,10 +49,13 @@ export class DescriptionSearchComponent implements OnInit {
       this.currentTerm = data.searchTerm;
 
     }
-    if (this.currentTerm !== data.searchTerm) {
+    if ((this.currentTerm !== data.searchTerm) &&
+          this.pageData) {
 
       console.log('resetting paginator');
       this.paginator.reset();
+
+      this.pageData = null;
     }
 
   }

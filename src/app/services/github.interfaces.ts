@@ -13,6 +13,7 @@ export class GithubResult {
     'avatarUrl': string;
     'created': Date; // "2018-05-29T12:40:01"
     'description': string;
+    'highlightText': string;
     'forkCount': number;
     'language': string;
     'name': string;
@@ -22,7 +23,6 @@ export class GithubResult {
     'watcherCount':  number;
     'topics': string[];
     'id': string;
-
 }
 
 export class ApiError {
