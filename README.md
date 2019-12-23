@@ -26,12 +26,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-# Running the Application
+# Running the Github Data Application
 
 
 ## Start Docker Elk
 * clone this repository: https://github.com/donhenton/docker-elk (ES frozen at 6.3.0)
 * docker-compose up -d
+
+## Optionally Load Data 
+* data can be loaded via scripts located here: https://github.com/donhenton/github_load
 
 ## Start the Rest Service
 * clone this repository: https://github.com/donhenton/elastic-demo
